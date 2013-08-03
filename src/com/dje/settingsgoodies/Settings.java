@@ -121,6 +121,11 @@ public class Settings {
 		}
 	}
 	
+	// Retrieve SharedPreferences object
+	public SharedPreferences getSettings() {
+		return settings;
+	}
+	
 	// Useful for debugging - returns all currently stored key-value pairs in a readable form
 	public String getAllReadable() {
 		return settings.getAll().toString();
