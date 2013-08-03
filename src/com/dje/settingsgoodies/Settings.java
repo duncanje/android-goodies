@@ -28,6 +28,7 @@ package com.dje.settingsgoodies;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -39,7 +40,8 @@ public class Settings {
 	public final static int TRUE = 1;
 	public final static int FALSE = 0;
 	public final static int ERROR = -1;
-	public final static int NULL = -2;
+	public final static int NULL_INT = -2;
+	public final static String NULL_STR = "";
 	
 	private SharedPreferences settings;
 	private SharedPreferences.Editor settingsEditor;
@@ -49,14 +51,20 @@ public class Settings {
 		settingsEditor = settings.edit();
 	}
 	
-	// Store a value for a given key
+	// Store an integer value for a given key
 	public void set(String key, int value) {
 		settingsEditor.putInt(key, value);
 		settingsEditor.commit();
 	}
 	
+	// Store a string value for a given key
+	public void set(String key, String value) {
+		settingsEditor.putString(key, value);
+		settingsEditor.commit();
+	}
+	
 	// Convert an ArrayList to a separated string and store it
-	public void set(String key, ArrayList<String> list) {
+	public void set(String key, List<String> list) {
 		int length = settings.getInt(key+"Length", ERROR);
 		
 		int count = 0;
@@ -71,9 +79,14 @@ public class Settings {
 		settingsEditor.commit();
 	}
 	
-	// Retrieve a value for a given key, return ERROR constant in case of an error
-	public int get(String key) {
+	// Retrieve an integer value for a given key, return ERROR constant in case of an error
+	public int getInt(String key) {
 		return settings.getInt(key, ERROR);
+	}
+	
+	// Retrieve a string value for a given key
+	public String getString(String key) {
+		return settings.getString(key, NULL_STR);
 	}
 	
 	// Retrieve an ArrayList for a given key
